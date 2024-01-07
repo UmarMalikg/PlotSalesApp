@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 // importing routes
 const plotCategoryRoute = require(`./routes/plotCategoryRoute`);
+const paymentMethodRoute = require(`./routes/paymentMethodRoute`);
 const townPlanningRoute = require(`./routes/townPlanningRoutes`);
 
 dotenv.config();
@@ -21,6 +22,7 @@ connectDB();
 
 // Routnig
 app.use(`/categories`, plotCategoryRoute);
+app.use(`/paymentMethods`, paymentMethodRoute);
 app.use(`/townPlanning`, townPlanningRoute);
 
 app.listen(port, () => {
