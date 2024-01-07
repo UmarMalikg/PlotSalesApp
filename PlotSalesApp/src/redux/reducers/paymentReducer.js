@@ -1,20 +1,36 @@
-// categoryReducer.js
-import { SET_RESERVATION_DATA } from "../actions/reservationActions";
+// paymentMethodReducer.js
+import {
+  SET_PAYMENT_METHOD_DATA,
+  SELECT_PAYMENT_METHOD,
+  ADD_PAYMENT_METHOD,
+} from "../actions/paymentMethodActions";
 
 const initialState = {
-  reservationData: [],
+  paymentMethodData: [],
+  selectedPaymentMethod: null, // Initially, no payment method is selected
 };
 
-const paymnentMethodReducer = (state = initialState, action) => {
+const paymentMethodReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_RESERVATION_DATA:
+    case SET_PAYMENT_METHOD_DATA:
       return {
         ...state,
-        reservationData: action.payload,
+        paymentMethodData: action.payload,
+      };
+    case SELECT_PAYMENT_METHOD:
+      return {
+        ...state,
+        selectedPaymentMethod: action.payload,
+      };
+    case ADD_PAYMENT_METHOD:
+      return {
+        ...state,
+        // Add the new payment method to the existing array
+        paymentMethodData: [...state.paymentMethodData, action.payload],
       };
     default:
       return state;
   }
 };
 
-export default paymnentMethodReducer;
+export default paymentMethodReducer;
