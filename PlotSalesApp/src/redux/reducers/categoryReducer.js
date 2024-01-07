@@ -1,5 +1,9 @@
 // categoryReducer.js
-import { SET_CATEGORY_DATA, SELECT_CATEGORY } from "../actions/categoryActions";
+import {
+  SET_CATEGORY_DATA,
+  SELECT_CATEGORY,
+  ADD_CATEGORY,
+} from "../actions/categoryActions";
 
 const initialState = {
   categoryData: [],
@@ -15,6 +19,11 @@ const categoryReducer = (state = initialState, action) => {
       };
     case SELECT_CATEGORY:
       return { ...state, selectedCategory: action.payload };
+    case ADD_CATEGORY:
+      return {
+        ...state,
+        categoryData: [...state.categoryData, action.payload], // Add the new category to the existing data
+      };
     default:
       return state;
   }

@@ -16,6 +16,14 @@ const Dashboard = () => {
       <TouchableOpacity onPress={() => navigation.navigate("TownPlanningForm")}>
         <Text>Add TownPlanning</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("PlotCategoryForm")}>
+        <Text>Add Plot Category</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("PaymentMethodForm")}
+      >
+        <Text>Add Payment Method</Text>
+      </TouchableOpacity>
     </View>
   );
 };

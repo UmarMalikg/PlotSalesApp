@@ -7,6 +7,8 @@ import Dashboard from "./src/screens/Dashboard";
 import ReservationForm from "./src/screens/forms/ReservationForm";
 import BookingForm from "./src/screens/forms/Bookingform";
 import TownPlanningForm from "./src/screens/forms/TownPlanningForm";
+import PlotCategoryForm from "./src/screens/forms/PlotCategoryForm";
+import PaymentMethodForm from "./src/screens/forms/PaymentMethodForm";
 
 const Navigation = () => {
   return (
@@ -20,6 +22,11 @@ const Navigation = () => {
           <Stack.Screen name="ReservationForm" component={ReservationForm} />
           <Stack.Screen name="BookingForm" component={BookingForm} />
           <Stack.Screen name="TownPlanningForm" component={TownPlanningForm} />
+          <Stack.Screen name="PlotCategoryForm" component={PlotCategoryForm} />
+          <Stack.Screen
+            name="PaymentMethodForm"
+            component={PaymentMethodForm}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
