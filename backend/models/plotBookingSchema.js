@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const plotBookingSchema = mongoose.Schema({
-  blockname: { type: String, required: true },
+  blockName: { type: String, required: true },
   plotNo: { type: String, required: true },
   purchaserName: { type: String, required: true },
   guardianName: { type: String, required: true },
@@ -9,11 +9,10 @@ const plotBookingSchema = mongoose.Schema({
   streetNo: { type: String },
   address: { type: String },
   mobileNo: { type: Number, required: true },
-  //   category: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "categories",
-  //   },
-  address: { type: String, required: true },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "categories",
+  },
 
   plotSize: { type: String, required: true },
   ratePerMarla: { type: Number, required: true },
@@ -31,5 +30,5 @@ const plotBookingSchema = mongoose.Schema({
   balanceAmountDueDate: { type: Date, required: true },
 });
 
-const PlotBooking = mongoose.model("reservation", plotBookingSchema);
+const PlotBooking = mongoose.model("plotBooking", plotBookingSchema);
 module.exports = PlotBooking;

@@ -8,34 +8,49 @@ router.post("/", async (req, res) => {
   try {
     // Extract data from the request body
     const {
-      lotNo,
       blockName,
       plotNo,
+      purchaserName,
+      guardianName,
+      cnic,
+      streetNo,
+      address,
+      mobileNo,
       category,
-      dimension,
       plotSize,
       ratePerMarla,
       extraPaymentFactor,
-      extraPaymentAmount,
-      streetNo,
-      salePrice,
-      installmentSalePrice,
+      extraFactorPaymenyt,
+      totalPlotPayment,
+      paymentMode,
+      bankName,
+      branchName,
+      paymentDate,
+      amountRecieved,
+      balanceAmount,
+      balanceAmountDueDate,
     } = req.body;
 
     // Check if all required fields are provided
     if (
-      !lotNo ||
       !blockName ||
       !plotNo ||
-      //   !category||
-      !dimension ||
+      !purchaserName ||
+      !guardianName ||
+      !cnic ||
+      !address ||
+      !mobileNo ||
+      !category ||
+      !extraFactorPaymenyt ||
+      !totalPlotPayment ||
+      !paymentMode ||
+      !paymentDate ||
       !plotSize ||
       !ratePerMarla ||
       !extraPaymentFactor ||
-      !extraPaymentAmount ||
-      !streetNo ||
-      !salePrice ||
-      !installmentSalePrice
+      !amountRecieved ||
+      !balanceAmount ||
+      !balanceAmountDueDate
     ) {
       return res.status(400).json({
         error: "All fields are required",
@@ -43,28 +58,37 @@ router.post("/", async (req, res) => {
     }
 
     // Create a new town Planning instance with the extracted data
-    const newTownPlan = new TownPlanning({
-      lotNo,
+    const newPlotBooking = new PlotBooking({
       blockName,
       plotNo,
+      purchaserName,
+      guardianName,
+      cnic,
+      streetNo,
+      address,
+      mobileNo,
       category,
-      dimension,
       plotSize,
       ratePerMarla,
       extraPaymentFactor,
-      extraPaymentAmount,
-      streetNo,
-      salePrice,
-      installmentSalePrice,
+      extraFactorPaymenyt,
+      totalPlotPayment,
+      paymentMode,
+      bankName,
+      branchName,
+      paymentDate,
+      amountRecieved,
+      balanceAmount,
+      balanceAmountDueDate,
     });
 
     // Save the new employee to the database
-    const savedTownPan = await newTownPlan.save();
+    const savedPlotBooking = await newPlotBooking.save();
 
-    res.status(201).json(savedTownPan);
+    res.status(201).json(savedPlotBooking);
   } catch (error) {
     // Check for duplicate key error
-    console.error("Error creating a new town plan:", error);
+    console.error("Error creating a new Plot Booking:", error);
   }
 });
 
@@ -73,17 +97,17 @@ router.get("/", async (req, res) => {
   const selectedCategory = req.query.category;
   try {
     if (!selectedCategory) {
-      const townPlans = await TownPlanning.find();
-      return res.status(200).json(townPlans);
+      const plotBooking = await PlotBooking.find();
+      return res.status(200).json(plotBooking);
     }
-    const townPlans = await TownPlanning.find({ category: selectedCategory });
-    if (!townPlans || townPlans.length === 0) {
+    const plotBooking = await PlotBooking.find({ category: selectedCategory });
+    if (!plotBooking || plotBooking.length === 0) {
       return res
         .status(404)
-        .json({ message: "No townPlans found for the given category" });
+        .json({ message: "No Plot Booking found for the given category" });
     }
 
-    return res.status(200).json(townPlans);
+    return res.status(200).json(plotBooking);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -92,11 +116,11 @@ router.get("/", async (req, res) => {
 // Get employee by ID
 router.get("/:id", async (req, res) => {
   try {
-    const townPlans = await TownPlanning.findById(req.params.id);
-    if (!townPlans) {
-      return res.status(404).json({ message: "townPlans not found" });
+    const plotBooking = await PlotBooking.findById(req.params.id);
+    if (!plotBooking) {
+      return res.status(404).json({ message: "Plot Booking not found" });
     }
-    res.json(townPlans);
+    res.json(plotBooking);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -105,17 +129,17 @@ router.get("/:id", async (req, res) => {
 // Update employee by ID
 router.put("/:id", async (req, res) => {
   try {
-    const townPlans = await TownPlanning.findByIdAndUpdate(
+    const plotBooking = await PlotBooking.findByIdAndUpdate(
       req.params.id,
       req.body,
       {
         new: true,
       }
     );
-    if (!townPlans) {
-      return res.status(404).json({ message: "townPlans not found" });
+    if (!plotBooking) {
+      return res.status(404).json({ message: "Plot Booking not found" });
     }
-    res.json(townPlans);
+    res.json(plotBooking);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -124,11 +148,11 @@ router.put("/:id", async (req, res) => {
 // Delete employee by ID
 router.delete("/:id", async (req, res) => {
   try {
-    const townPlans = await TownPlanning.findByIdAndDelete(req.params.id);
-    if (!townPlans) {
-      return res.status(404).json({ message: "townPlans not found" });
+    const plotBooking = await PlotBooking.findByIdAndDelete(req.params.id);
+    if (!plotBooking) {
+      return res.status(404).json({ message: "Plot Booking not found" });
     }
-    res.json({ message: "townPlans deleted successfully" });
+    res.json({ message: "Plot Booking deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

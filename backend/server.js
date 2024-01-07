@@ -15,6 +15,7 @@ const plotCategoryRoute = require(`./routes/plotCategoryRoute`);
 const paymentMethodRoute = require(`./routes/paymentMethodRoute`);
 const townPlanningRoute = require(`./routes/townPlanningRoutes`);
 const reservationRoute = require(`./routes/reservationRoute`);
+const plotBookingRoute = require(`./routes/plotBookingRoute`);
 
 dotenv.config();
 app.use(cors());
@@ -26,6 +27,7 @@ app.use(`/categories`, plotCategoryRoute);
 app.use(`/paymentMethods`, paymentMethodRoute);
 app.use(`/townPlanning`, townPlanningRoute);
 app.use(`/reservation`, reservationRoute);
+app.use(`/plotBooking`, plotBookingRoute);
 
 app.listen(port, () => {
   console.log("app works");

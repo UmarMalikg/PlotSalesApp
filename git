@@ -1,0 +1,23 @@
+[33mcommit f020f5b821795ef7f5ca9ec2c7d4bc4300d62ae5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Malik Umar <umargulzar2001@gmail.com>
+Date:   Sun Jan 7 20:39:02 2024 +0500
+
+    added another route for reservation
+
+[33mcommit 79ac8ab8336d682dd46cd82ed565ad6394adbca5[m
+Author: Malik Umar <umargulzar2001@gmail.com>
+Date:   Sun Jan 7 19:22:37 2024 +0500
+
+    added the route for payment methods
+
+[33mcommit 6683108d76806d3ec22d69ece638ca928dcbe41e[m
+Author: Malik Umar <umargulzar2001@gmail.com>
+Date:   Sun Jan 7 19:10:15 2024 +0500
+
+    Adding Category and town Planning Routes
+
+[33mcommit b7679c30fb36e7049c7fb0c29b49f71a198b7bbb[m
+Author: Malik Umar <umargulzar2001@gmail.com>
+Date:   Sun Jan 7 18:30:22 2024 +0500
+
+    initial commit
