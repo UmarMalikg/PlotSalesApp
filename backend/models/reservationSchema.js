@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const reservationSchema = mongoose.Schema({
-  blockname: { type: String, required: true },
+  blockName: { type: String, required: true },
   plotNo: { type: String, required: true },
   purchaserName: { type: String, required: true },
   guardianName: { type: String, required: true },

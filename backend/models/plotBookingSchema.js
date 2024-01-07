@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const reservationSchema = mongoose.Schema({
+const plotBookingSchema = mongoose.Schema({
   blockname: { type: String, required: true },
   plotNo: { type: String, required: true },
   purchaserName: { type: String, required: true },
@@ -31,5 +31,5 @@ const reservationSchema = mongoose.Schema({
   balanceAmountDueDate: { type: Date, required: true },
 });
 
-const Reservation = mongoose.model("reservation", reservationSchema);
-module.exports = Reservation;
+const PlotBooking = mongoose.model("reservation", plotBookingSchema);
+module.exports = PlotBooking;
