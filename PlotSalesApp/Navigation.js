@@ -19,6 +19,12 @@ const Navigation = () => {
       >
         <Stack.Group>
           <Stack.Screen name="Dashboard" component={Dashboard} />
+        </Stack.Group>
+        <Stack.Group
+          screenOptions={{
+            presentation: "transparentModal",
+          }}
+        >
           <Stack.Screen name="ReservationForm" component={ReservationForm} />
           <Stack.Screen name="BookingForm" component={BookingForm} />
           <Stack.Screen name="TownPlanningForm" component={TownPlanningForm} />
