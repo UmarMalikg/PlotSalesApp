@@ -18,5 +18,5 @@ const townPlanningSchema = mongoose.Schema({
   installmentSalePrice: { type: String, required: true },
 });
 
-const TownPlanning = mongoose.model("townPlanning", townPlanningSchema);
+const TownPlanning = mongoose.model("townplannings", townPlanningSchema);
 module.exports = TownPlanning;

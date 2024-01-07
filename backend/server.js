@@ -11,11 +11,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 // importing routes
+const plotCategoryRoute = require(`./routes/plotCategoryRoute`);
+const townPlanningRoute = require(`./routes/townPlanningRoutes`);
 
 dotenv.config();
 app.use(cors());
 app.use(express.json());
 connectDB();
+
+// Routnig
+app.use(`/categories`, plotCategoryRoute);
+app.use(`/townPlanning`, townPlanningRoute);
 
 app.listen(port, () => {
   console.log("app works");
