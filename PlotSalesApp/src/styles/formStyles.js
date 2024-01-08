@@ -8,10 +8,11 @@ const formStyles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 30,
   },
   model: {
     backgroundColor: "#fff",
-    position: "absolute",
+    position: "fixed",
     left: "5%",
     top: "5%",
     ...(isWeb && {}),
@@ -51,6 +52,7 @@ const formStyles = StyleSheet.create({
     marginTop: 15,
     marginHorizontal: isWeb ? 25 : 5,
   },
+  requiredStar: { color: "#f00" },
   inputField: {
     borderColor: "#ddd",
     borderWidth: 1,

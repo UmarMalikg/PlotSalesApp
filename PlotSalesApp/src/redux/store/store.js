@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { thunk } from "redux-thunk";
 import categoriesReducer from "../reducers/categoryReducer";
-import reservationReducer from "../reducers/reservationRducer";
 import paymnentMethodReducer from "../reducers/paymentReducer";
+import reservationReducer from "../reducers/reservationRducer";
 
 const rootReducer = combineReducers({
   categories: categoriesReducer,
-  reservations: reservationReducer,
   paymentMethods: paymnentMethodReducer,
+  reservations: reservationReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

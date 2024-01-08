@@ -77,16 +77,16 @@ const PlotCategoryForm = ({ addCategory }) => {
       >
         <Text style={formStyles.closeButton}>X</Text>
       </TouchableOpacity>
-      <View style={formStyles.padder}>
-        <Text style={formStyles.title}>Add plot Category </Text>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-        >
+      <Text style={formStyles.title}>Add plot Category </Text>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={formStyles.padder}>
           <View style={formStyles.allInputs}>
             <View style={formStyles.inputWrapper}>
               <Text>
-                Category Name<Text>*</Text>
+                Category Name<Text style={formStyles.requiredStar}>*</Text>
               </Text>
               <TextInput
                 style={formStyles.inputField}
@@ -122,8 +122,8 @@ const PlotCategoryForm = ({ addCategory }) => {
               <Text style={formStyles.buttonText}>Back</Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
