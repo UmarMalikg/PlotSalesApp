@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
+
+const isWeb = Platform.OS === "web";
 
 const formStyles = StyleSheet.create({
   title: {
@@ -8,20 +10,20 @@ const formStyles = StyleSheet.create({
     alignItems: "center",
   },
   model: {
+    backgroundColor: "#fff",
     position: "absolute",
     left: "5%",
     top: "5%",
+    ...(isWeb && {}),
+    width: isWeb ? "80vw" : "90%",
+    height: isWeb ? "80vh" : "90%",
     transform: [
-      { translateX: -40 + 112 }, // Adjust this value based on half of the modal width
-      { translateY: -30 + 35 }, // Adjust this value based on half of the modal height
+      { translateX: isWeb ? -40 + 112 : -3 }, // Adjust this value based on half of the modal width
+      { translateY: isWeb ? -30 + 35 : 5 }, // Adjust this value based on half of the modal height
     ],
-    width: "80vw",
-    height: "80vh",
-    backgroundColor: "#fff",
   },
   padder: {
-    paddingHorizontal: 30,
-    paddingVertical: 30,
+    padding: isWeb ? 30 : 20,
   },
   closeButton: {
     position: "absolute",
@@ -30,29 +32,31 @@ const formStyles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 15,
     backgroundColor: "#ddd",
-    fontSize: "20px",
-    cursor: "pointer",
+    fontSize: 20,
+    ...(isWeb && { cursor: "pointer" }),
     zIndex: 1000,
   },
 
   allInputs: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr", // Adjust the number of columns as needed
-    gridColumnGap: 16, // Adjust the column gap value as needed
-    gridRowGap: 16,
+    ...(isWeb && {
+      gridTemplateColumns: "1fr 1fr 1fr", // Adjust the number of columns as needed
+      gridColumnGap: 16, // Adjust the column gap value as needed
+      gridRowGap: 16,
+    }),
   },
 
   inputWrapper: {
     display: "flex",
     marginTop: 15,
-    marginHorizontal: 25,
+    marginHorizontal: isWeb ? 25 : 5,
   },
   inputField: {
     borderColor: "#ddd",
     borderWidth: 1,
-    borderRadius: "3px",
+    borderRadius: 3,
     padding: 7,
-    fontSize: "16px",
+    fontSize: 16,
   },
 
   buttonPosition: {
@@ -63,15 +67,16 @@ const formStyles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#7d00b9",
-    borderRadius: "3px",
+    borderRadius: 3,
     cursor: "pointer",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    margin: 20,
+    marginHorizontal: isWeb ? 20 : 7,
+    marginVertical: 20,
   },
   buttonText: {
     fontWeight: "bold",
-    fontSize: "14px",
+    fontSize: 14,
     color: "white",
   },
   buttonHovered: {
