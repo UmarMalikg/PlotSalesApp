@@ -1,10 +1,10 @@
 import { TouchableOpacity, View, Text, ScrollView } from "react-native";
 import React, { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import dataStyles from "../styles/dataStyles";
 import { connect } from "react-redux";
 import { fetchTownPlanningData } from "../redux/actions/townPlanningActions";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
+import DataHeader from "./forms/components/DataHeader";
 import SingleData from "./forms/components/SingleData";
 
 const TownPlanning = ({
@@ -18,15 +18,9 @@ const TownPlanning = ({
     fetchCategoryData();
   }, [fetchTownPlanningData, fetchCategoryData]);
 
-  const navigation = useNavigation();
   return (
     <View>
-      <TouchableOpacity
-        style={dataStyles.button}
-        onPress={() => navigation.navigate("Dashboard")}
-      >
-        <Text style={dataStyles.buttonText}>Go Back</Text>
-      </TouchableOpacity>
+      <DataHeader headerTitle={`Town Planning (Resedential)`} />
       <ScrollView>
         <View style={dataStyles.allDataWrapper}>
           {townPlanningData.map((townPlanning) => (

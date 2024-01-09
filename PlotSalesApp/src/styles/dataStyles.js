@@ -3,6 +3,20 @@ import { StyleSheet, Platform } from "react-native";
 const isWeb = Platform.OS === "web";
 
 const dataStyles = StyleSheet.create({
+  dataHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    ...(isWeb && {
+      marginHorizontal: 30,
+    }),
+  },
+  hederTitle: {
+    fontSize: isWeb ? 22 : 19,
+    fontWeight: "bold",
+  },
+
   allDataWrapper: {
     ...(isWeb && {
       display: "grid",
