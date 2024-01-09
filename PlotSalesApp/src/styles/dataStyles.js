@@ -3,6 +3,14 @@ import { StyleSheet, Platform } from "react-native";
 const isWeb = Platform.OS === "web";
 
 const dataStyles = StyleSheet.create({
+  headerPosition: {
+    position: "absolute",
+    left: 0,
+    rigt: 0,
+    top: 0,
+    width: "100%",
+    zIndex: 1000,
+  },
   dataHeader: {
     display: "flex",
     alignItems: "center",
@@ -17,7 +25,16 @@ const dataStyles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  allDataWrapper: {
+  dataPosition: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 50,
+    height: "90vh",
+    width: "100vw",
+  },
+
+  dataGrids: {
     ...(isWeb && {
       display: "grid",
       gridTemplateColumns: "1fr 1fr 1fr",

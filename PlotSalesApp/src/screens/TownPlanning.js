@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import React, { useEffect } from "react";
 import dataStyles from "../styles/dataStyles";
 import { connect } from "react-redux";
@@ -14,62 +14,73 @@ const TownPlanning = ({
   categoryData,
 }) => {
   useEffect(() => {
-    fetchTownPlanningData();
     fetchCategoryData();
-  }, [fetchTownPlanningData, fetchCategoryData]);
+    fetchTownPlanningData();
+  }, [fetchCategoryData, fetchTownPlanningData]);
 
   return (
     <View>
       <DataHeader headerTitle={`Town Planning (Resedential)`} />
-      <ScrollView>
-        <View style={dataStyles.allDataWrapper}>
-          {townPlanningData.map((townPlanning) => (
-            <View style={dataStyles.dataWrapper} key={townPlanning._id}>
-              <SingleData title={`Lot No :`} data={townPlanning.lotNo} />
-              <SingleData
-                title={`Block Name :`}
-                data={townPlanning.blockName}
-              />
-              <SingleData title={`Plot No :`} data={townPlanning.plotNo} />
-              <SingleData
-                title={`Category :`}
-                data={
-                  categoryData.find(
-                    (category) => category._id === townPlanning.category
-                  )?.name || "N/A"
-                }
-              />
-              <SingleData title={`Dimension :`} data={townPlanning.dimension} />
-              <SingleData title={`Plot Size :`} data={townPlanning.plotSize} />
-              <SingleData
-                title={`Rate Per Marla :`}
-                data={townPlanning.ratePerMarla}
-              />
-              <SingleData
-                title={`Extra Payment Factor :`}
-                data={townPlanning.extraPaymentFactor}
-              />
-              <SingleData
-                title={`Extra Payment Amount :`}
-                data={townPlanning.extraPaymentAmount}
-              />
-              <SingleData title={`Street No :`} data={townPlanning.streetNo} />
-              <SingleData
-                title={`Sale Price :`}
-                data={townPlanning.salePrice}
-              />
-              <SingleData
-                title={`Installment Sale Price :`}
-                data={townPlanning.installmentSalePrice}
-              />
-              {/* <View style={dataStyles.singleData}>
+      <View style={dataStyles.dataPosition}>
+        <ScrollView>
+          <View style={dataStyles.dataGrids}>
+            {townPlanningData.map((townPlanning) => (
+              <View style={dataStyles.dataWrapper} key={townPlanning._id}>
+                <SingleData title={`Lot No :`} data={townPlanning.lotNo} />
+                <SingleData
+                  title={`Block Name :`}
+                  data={townPlanning.blockName}
+                />
+                <SingleData title={`Plot No :`} data={townPlanning.plotNo} />
+                <SingleData
+                  title={`Category :`}
+                  data={
+                    categoryData.find(
+                      (category) => category._id === townPlanning.category
+                    )?.name || "N/A"
+                  }
+                />
+                <SingleData
+                  title={`Dimension :`}
+                  data={townPlanning.dimension}
+                />
+                <SingleData
+                  title={`Plot Size :`}
+                  data={townPlanning.plotSize}
+                />
+                <SingleData
+                  title={`Rate Per Marla :`}
+                  data={townPlanning.ratePerMarla}
+                />
+                <SingleData
+                  title={`Extra Payment Factor :`}
+                  data={townPlanning.extraPaymentFactor}
+                />
+                <SingleData
+                  title={`Extra Payment Amount :`}
+                  data={townPlanning.extraPaymentAmount}
+                />
+                <SingleData
+                  title={`Street No :`}
+                  data={townPlanning.streetNo}
+                />
+                <SingleData
+                  title={`Sale Price :`}
+                  data={townPlanning.salePrice}
+                />
+                <SingleData
+                  title={`Installment Sale Price :`}
+                  data={townPlanning.installmentSalePrice}
+                />
+                {/* <View style={dataStyles.singleData}>
                 <Text style={dataStyles.dataTitle}>Plot No:</Text>
                 <Text style={dataStyles.data}>{townPlanning.plotNo}</Text>
               </View> */}
-            </View>
-          ))}
-        </View>
-      </ScrollView>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 };
