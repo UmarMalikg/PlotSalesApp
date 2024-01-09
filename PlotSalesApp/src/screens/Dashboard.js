@@ -19,6 +19,10 @@ const Dashboard = () => {
       <TouchableOpacity onPress={() => navigation.navigate("PlotCategoryForm")}>
         <Text>Add Plot Category</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate("TownPlanning")}>
+        <Text>Town Planning</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate("PaymentMethodForm")}
       >

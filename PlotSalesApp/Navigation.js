@@ -10,6 +10,8 @@ import TownPlanningForm from "./src/screens/forms/TownPlanningForm";
 import PlotCategoryForm from "./src/screens/forms/PlotCategoryForm";
 import PaymentMethodForm from "./src/screens/forms/PaymentMethodForm";
 
+import TownPlanning from "./src/screens/TownPlanning";
+
 const Navigation = () => {
   return (
     <NavigationContainer>
@@ -19,6 +21,7 @@ const Navigation = () => {
       >
         <Stack.Group>
           <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen name="TownPlanning" component={TownPlanning} />
         </Stack.Group>
         <Stack.Group
           screenOptions={{
