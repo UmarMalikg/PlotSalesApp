@@ -12,6 +12,7 @@ import PaymentMethodForm from "./src/screens/forms/PaymentMethodForm";
 
 import TownPlanning from "./src/screens/TownPlanning";
 import Reservation from "./src/screens/Reservation";
+import Booking from "./src/screens/Booking";
 
 const Navigation = () => {
   return (
@@ -24,6 +25,7 @@ const Navigation = () => {
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="TownPlanning" component={TownPlanning} />
           <Stack.Screen name="Reservation" component={Reservation} />
+          <Stack.Screen name="Booking" component={Booking} />
         </Stack.Group>
         <Stack.Group
           screenOptions={{

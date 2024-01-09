@@ -24,53 +24,38 @@ const TownPlanning = ({
       <View style={dataStyles.dataPosition}>
         <ScrollView>
           <View style={dataStyles.dataGrids}>
-            {townPlanningData.map((townPlanning) => (
-              <View style={dataStyles.dataWrapper} key={townPlanning._id}>
-                <SingleData title={`Lot No :`} data={townPlanning.lotNo} />
-                <SingleData
-                  title={`Block Name :`}
-                  data={townPlanning.blockName}
-                />
-                <SingleData title={`Plot No :`} data={townPlanning.plotNo} />
+            {townPlanningData.map((data) => (
+              <View style={dataStyles.dataWrapper} key={data._id}>
+                <SingleData title={`Lot No :`} data={data.lotNo} />
+                <SingleData title={`Block Name :`} data={data.blockName} />
+                <SingleData title={`Plot No :`} data={data.plotNo} />
                 <SingleData
                   title={`Category :`}
                   data={
                     categoryData.find(
-                      (category) => category._id === townPlanning.category
+                      (category) => category._id === data.category
                     )?.name || "N/A"
                   }
                 />
-                <SingleData
-                  title={`Dimension :`}
-                  data={townPlanning.dimension}
-                />
-                <SingleData
-                  title={`Plot Size :`}
-                  data={townPlanning.plotSize}
-                />
+                <SingleData title={`Dimension :`} data={data.dimension} />
+                <SingleData title={`Plot Size :`} data={data.plotSize} />
                 <SingleData
                   title={`Rate Per Marla :`}
-                  data={townPlanning.ratePerMarla}
+                  data={data.ratePerMarla}
                 />
                 <SingleData
                   title={`Extra Payment Factor :`}
-                  data={townPlanning.extraPaymentFactor}
+                  data={data.extraPaymentFactor}
                 />
                 <SingleData
                   title={`Extra Payment Amount :`}
-                  data={townPlanning.extraPaymentAmount}
+                  data={data.extraPaymentAmount}
                 />
-                <SingleData
-                  title={`Street No :`}
-                  data={townPlanning.streetNo}
-                />
-                <SingleData
-                  title={`Sale Price :`}
-                  data={townPlanning.salePrice}
-                />
+                <SingleData title={`Street No :`} data={data.streetNo} />
+                <SingleData title={`Sale Price :`} data={data.salePrice} />
                 <SingleData
                   title={`Installment Sale Price :`}
-                  data={townPlanning.installmentSalePrice}
+                  data={data.installmentSalePrice}
                 />
                 {/* <View style={dataStyles.singleData}>
                 <Text style={dataStyles.dataTitle}>Plot No:</Text>

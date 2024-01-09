@@ -31,6 +31,9 @@ const Dashboard = () => {
       <TouchableOpacity onPress={() => navigation.navigate("Reservation")}>
         <Text>Reservation</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Booking")}>
+        <Text>Plot Booking</Text>
+      </TouchableOpacity>
     </View>
   );
 };

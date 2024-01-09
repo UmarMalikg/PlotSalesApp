@@ -2,25 +2,25 @@ import { View, ScrollView } from "react-native";
 import React, { useEffect } from "react";
 import dataStyles from "../styles/dataStyles";
 import { connect } from "react-redux";
-import { fetchReservationData } from "../redux/actions/reservationActions";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../redux/actions/paymentMethodActions";
+import { fetchBookingData } from "../redux/actions/bookingActions";
 import DataHeader from "./forms/components/DataHeader";
 import SingleData from "./forms/components/SingleData";
 
-const Reservation = ({
+const Booking = ({
   fetchCategoryData,
   categoryData,
   fetchPaymentMethodData,
   paymentMethodData,
-  fetchReservationData,
-  reservationData,
+  fetchBookingData,
+  bookingData,
 }) => {
   useEffect(() => {
     fetchCategoryData();
     fetchPaymentMethodData();
-    fetchReservationData();
-  }, [fetchCategoryData, fetchPaymentMethodData, fetchReservationData]);
+    fetchBookingData();
+  }, [fetchCategoryData, fetchPaymentMethodData, fetchBookingData]);
 
   return (
     <View>
@@ -28,7 +28,7 @@ const Reservation = ({
       <View style={dataStyles.dataPosition}>
         <ScrollView>
           <View style={dataStyles.dataGrids}>
-            {reservationData.map((data) => (
+            {bookingData.map((data) => (
               <View style={dataStyles.dataWrapper} key={data._id}>
                 <SingleData title={`Block Name :`} data={data.blockName} />
                 <SingleData title={`Plot No :`} data={data.plotNo} />
@@ -105,13 +105,13 @@ const mapStateToProps = (state) => {
   return {
     categoryData: state.categories.categoryData,
     paymentMethodData: state.paymentMethods.paymentMethodData,
-    reservationData: state.reservations.reservationData,
+    bookingData: state.bookings.bookingData,
   };
 };
 
 const mapDispatchToProps = {
   fetchCategoryData,
   fetchPaymentMethodData,
-  fetchReservationData,
+  fetchBookingData,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Reservation);
+export default connect(mapStateToProps, mapDispatchToProps)(Booking);
