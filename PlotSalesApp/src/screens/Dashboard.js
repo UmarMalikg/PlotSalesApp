@@ -1,45 +1,21 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import dashboardStyles from "../styles/dashboardStyles";
+import DashboardLinks from "./forms/components/DashboardLinks";
 
 const Dashboard = () => {
-  const navigation = useNavigation();
   return (
-    <View>
-      <Text>Hello from the Dashboard</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("ReservationForm")}>
-        <Text>Add Reservation</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("BookingForm")}>
-        <Text>Add Plot Booking</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("TownPlanningForm")}>
-        <Text>Add TownPlanning</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("PlotCategoryForm")}>
-        <Text>Add Plot Category</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("PaymentMethodForm")}
-      >
-        <Text>Add Payment Method</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate("TownPlanning")}>
-        <Text>Town Planning</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Reservation")}>
-        <Text>Reservation</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Booking")}>
-        <Text>Plot Booking</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Category")}>
-        <Text>Category</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("PaymentMethods")}>
-        <Text>Payment Methods</Text>
-      </TouchableOpacity>
+    <View style={dashboardStyles.dashboard}>
+      <DashboardLinks title={`Add Reservation`} link={`ReservationForm`} />
+      <DashboardLinks title={`Add Plot Booking`} link={`BookingForm`} />
+      <DashboardLinks title={`Add Town Planning`} link={`TownPlanningForm`} />
+      <DashboardLinks title={`Add Plot Category`} link={`PlotCategoryForm`} />
+      <DashboardLinks title={`Add Payment Method`} link={`PaymentMethodForm`} />
+      <DashboardLinks title={`Town Planning`} link={`TownPlanning`} />
+      <DashboardLinks title={`Reservation`} link={`Reservation`} />
+      <DashboardLinks title={`Plot Booking`} link={`Booking`} />
+      <DashboardLinks title={`Category`} link={`Category`} />
+      <DashboardLinks title={`Payment Methods`} link={`PaymentMethods`} />
     </View>
   );
 };

@@ -187,7 +187,7 @@ const ReservationForm = ({
       >
         <Text style={formStyles.closeButton}>X</Text>
       </TouchableOpacity>
-      <Text style={formStyles.title}>Add Reservation </Text>
+      <Text style={formStyles.title}>Add Plot Booking </Text>
       <ScrollView
       // showsHorizontalScrollIndicator={false}
       // showsVerticalScrollIndicator={false}
