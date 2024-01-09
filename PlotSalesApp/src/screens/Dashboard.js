@@ -37,6 +37,9 @@ const Dashboard = () => {
       <TouchableOpacity onPress={() => navigation.navigate("Category")}>
         <Text>Category</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("PaymentMethods")}>
+        <Text>Payment Methods</Text>
+      </TouchableOpacity>
     </View>
   );
 };
