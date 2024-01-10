@@ -1,6 +1,7 @@
 import { View, ScrollView } from "react-native";
 import React, { useEffect } from "react";
 import dataStyles from "../styles/dataStyles";
+import Barcode from "react-barcode";
 import { connect } from "react-redux";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../redux/actions/paymentMethodActions";
@@ -38,9 +39,9 @@ const Booking = ({
                 />
                 <SingleData title={`S/O D/O W/O :`} data={data.guardianName} />
                 <SingleData title={`CNIC :`} data={data.cnic} />
-                <SingleData title={`Street No :`} data={data.streetNo} />
-                <SingleData title={`Address :`} data={data.address} />
                 <SingleData title={`Mobile No :`} data={data.mobileNo} />
+                <SingleData title={`Address :`} data={data.address} />
+                <SingleData title={`Street No :`} data={data.streetNo} />
                 <SingleData
                   title={`Category :`}
                   data={
@@ -81,6 +82,10 @@ const Booking = ({
                 <SingleData title={`Branch Name :`} data={data.branchName} />
                 <SingleData title={`Payment Date :`} data={data.paymentDate} />
                 <SingleData
+                  title={`Already Amount Recieved :`}
+                  data={data.amountRecieved}
+                />
+                <SingleData
                   title={`Amount Recieved :`}
                   data={data.amountRecieved}
                 />
@@ -92,6 +97,13 @@ const Booking = ({
                   title={`Balance Amount Due Date :`}
                   data={data.balanceAmountDueDate}
                 />
+                <View style={dataStyles.barcodePosition}>
+                  <Barcode
+                    value={data.barcodeDigits}
+                    displayValue={false}
+                    height={60}
+                  />
+                </View>
               </View>
             ))}
           </View>

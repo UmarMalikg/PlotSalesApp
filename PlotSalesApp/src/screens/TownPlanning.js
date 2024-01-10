@@ -62,7 +62,7 @@ const TownPlanning = ({
                 <View style={dataStyles.barcodePosition}>
                   <Barcode
                     value={data.barcodeDigits}
-                    // displayValue={false}
+                    displayValue={false}
                     height={60}
                   />
                 </View>
