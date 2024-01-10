@@ -1,4 +1,10 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import formStyles from "../../styles/formStyles";
 import React, { useState, useEffect } from "react";
@@ -9,6 +15,8 @@ import { fetchPaymentMethodData } from "../../redux/actions/paymentMethodActions
 import { addBooking } from "../../redux/actions/bookingActions";
 import InputField from "./components/InputField";
 
+let systemDigits = generateRandom4DigitCode();
+
 const ReservationForm = ({
   addBooking,
   fetchCategoryData,
@@ -18,6 +26,8 @@ const ReservationForm = ({
 }) => {
   const navigation = useNavigation();
 
+  //user Digits Define
+  const [userDigits, setUserDigits] = useState("");
   // for hovering effect
   const [isHovered, setIsHovered] = useState(false);
 
@@ -36,9 +46,9 @@ const ReservationForm = ({
     purchaserName: "",
     guardianName: "",
     cnic: "",
-    streetNo: "",
-    address: "",
     mobileNo: "",
+    address: "",
+    streetNo: "",
     category: "",
     plotSize: "",
     ratePerMarla: "",
@@ -49,9 +59,11 @@ const ReservationForm = ({
     bankName: "",
     branchName: "",
     paymentDate: "",
+    alreadyAmountRecieved: 0,
     amountRecieved: "",
     balanceAmount: "",
     balanceAmountDueDate: "",
+    barcodeDigits: "",
   });
 
   // fetching the category and payemt method Data
@@ -62,11 +74,37 @@ const ReservationForm = ({
   }, [fetchCategoryData, fetchPaymentMethodData]);
 
   //handling the form data
-  const handleChange = (fieldName, value) => {
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
+  const handleChange = (fieldName, value, isNumeric) => {
+    // If isNumeric is true, remove non-numeric characters
+    const cleanedValue = isNumeric ? value.replace(/[^0-9]/g, "") : value;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: cleanedValue,
+    }));
+  };
+
+  // Ensure only digits are entered and limit to exactly four digits
+  const handleUserDigits = (e) => {
+    const value = e.target.value;
+
+    // Ensure only digits are entered and limit to exactly four digits
+    if (/^\d{0,4}$/.test(value)) {
+      setUserDigits(value);
+    }
+  };
+
+  const handleBarcodeDigits = (e) => {
+    handleUserDigits(e);
+    if (!userDigits && userDigits.length === 0) {
+      return;
+    } else if (userDigits.length === 4) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        barcodeDigits: systemDigits + userDigits,
+      }));
+      console.log(formData.barcodeDigits);
+    }
   };
 
   // submission logic
@@ -78,7 +116,6 @@ const ReservationForm = ({
       !formData.purchaserName ||
       !formData.guardianName ||
       !formData.cnic ||
-      !formData.address ||
       !formData.mobileNo ||
       !formData.category ||
       !formData.extraFactorPaymenyt ||
@@ -90,7 +127,8 @@ const ReservationForm = ({
       !formData.extraPaymentFactor ||
       !formData.amountRecieved ||
       !formData.balanceAmount ||
-      !formData.balanceAmountDueDate
+      !formData.balanceAmountDueDate ||
+      !formData.barcodeDigits
     ) {
       console.log("Please enter the all fields for reservation");
       alert("please enter the all fields for reservation");
@@ -104,9 +142,9 @@ const ReservationForm = ({
       purchaserName: formData.purchaserName,
       guardianName: formData.guardianName,
       cnic: formData.cnic,
-      streetNo: formData.streetNo,
-      address: formData.address,
       mobileNo: formData.mobileNo,
+      address: formData.address,
+      streetNo: formData.streetNo,
       category: formData.category,
       plotSize: formData.plotSize,
       ratePerMarla: formData.ratePerMarla,
@@ -117,9 +155,11 @@ const ReservationForm = ({
       bankName: formData.bankName,
       branchName: formData.branchName,
       paymentDate: formData.paymentDate,
+      alreadyAmountRecieved: formData.alreadyAmountRecieved,
       amountRecieved: formData.amountRecieved,
       balanceAmount: formData.balanceAmount,
       balanceAmountDueDate: formData.balanceAmountDueDate,
+      barcodeDigits: formData.barcodeDigits,
     };
 
     // Dispatch the addProduct action
@@ -132,9 +172,9 @@ const ReservationForm = ({
       purchaserName: "",
       guardianName: "",
       cnic: "",
-      streetNo: "",
-      address: "",
       mobileNo: "",
+      address: "",
+      streetNo: "",
       category: "",
       plotSize: "",
       ratePerMarla: "",
@@ -145,10 +185,12 @@ const ReservationForm = ({
       bankName: "",
       branchName: "",
       paymentDate: "",
+      alreadyAmountRecieved: 0,
       amountRecieved: "",
       balanceAmount: "",
       balanceAmountDueDate: "",
     });
+    setUserDigits("");
   };
   // clearing the form
   const clearForm = () => {
@@ -158,9 +200,9 @@ const ReservationForm = ({
       purchaserName: "",
       guardianName: "",
       cnic: "",
-      streetNo: "",
-      address: "",
       mobileNo: "",
+      address: "",
+      streetNo: "",
       category: "",
       plotSize: "",
       ratePerMarla: "",
@@ -171,10 +213,12 @@ const ReservationForm = ({
       bankName: "",
       branchName: "",
       paymentDate: "",
+      alreadyAmountRecieved: 0,
       amountRecieved: "",
       balanceAmount: "",
       balanceAmountDueDate: "",
     });
+    setUserDigits("");
   };
   // Component
   return (
@@ -197,43 +241,43 @@ const ReservationForm = ({
           <View style={formStyles.allInputs}>
             <InputField
               value={formData.blockName}
-              title="Block Name" // Don't forget to pass the handleChange function
+              title="Block Name"
               onChangeText={(text) => handleChange("blockName", text)}
             />
             <InputField
               value={formData.plotNo}
-              title="Plot No" // Don't forget to pass the handleChange function
+              title="Plot No"
               onChangeText={(text) => handleChange("plotNo", text)}
             />
             <InputField
               value={formData.purchaserName}
-              title="Purchaser Name" // Don't forget to pass the handleChange function
+              title="Purchaser Name"
               onChangeText={(text) => handleChange("purchaserName", text)}
             />
             <InputField
               value={formData.guardianName}
-              title="Guardian Name" // Don't forget to pass the handleChange function
+              title="Guardian Name"
               onChangeText={(text) => handleChange("guardianName", text)}
             />
             <InputField
               value={formData.cnic}
-              title="CNIC" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("cnic", text)}
-            />
-            <InputField
-              value={formData.streetNo}
-              title="Street No" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("streetNo", text)}
-            />
-            <InputField
-              value={formData.address}
-              title="Address" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("address", text)}
+              title="CNIC"
+              onChangeText={(text) => handleChange("cnic", text, true)}
             />
             <InputField
               value={formData.mobileNo}
-              title="Mobile No" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("mobileNo", text)}
+              title="Mobile No"
+              onChangeText={(text) => handleChange("mobileNo", text, true)}
+            />
+            <InputField
+              value={formData.address}
+              title="Address"
+              onChangeText={(text) => handleChange("address", text)}
+            />
+            <InputField
+              value={formData.streetNo}
+              title="Street No"
+              onChangeText={(text) => handleChange("streetNo", text)}
             />
 
             <View style={formStyles.inputWrapper}>
@@ -261,13 +305,13 @@ const ReservationForm = ({
 
             <InputField
               value={formData.plotSize}
-              title="plotSize" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("plotSize", text)}
+              title="plotSize"
+              onChangeText={(text) => handleChange("plotSize", text, true)}
             />
             <InputField
               value={formData.ratePerMarla}
-              title="Rate per Marla" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("ratePerMarla", text)}
+              title="Rate per Marla"
+              onChangeText={(text) => handleChange("ratePerMarla", text, true)}
             />
 
             <InputField
@@ -278,12 +322,16 @@ const ReservationForm = ({
             <InputField
               value={formData.extraFactorPaymenyt}
               title="Extra Factor Paymenyt" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("extraFactorPaymenyt", text)}
+              onChangeText={(text) =>
+                handleChange("extraFactorPaymenyt", text, true)
+              }
             />
             <InputField
               value={formData.totalPlotPayment}
               title="Total Plot Payment" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("totalPlotPayment", text)}
+              onChangeText={(text) =>
+                handleChange("totalPlotPayment", text, true)
+              }
             />
 
             <View style={formStyles.inputWrapper}>
@@ -311,36 +359,82 @@ const ReservationForm = ({
 
             <InputField
               value={formData.bankName}
-              title="Bank Name" // Don't forget to pass the handleChange function
+              title="Bank Name"
               onChangeText={(text) => handleChange("bankName", text)}
             />
             <InputField
               value={formData.branchName}
-              title="Branch Name" // Don't forget to pass the handleChange function
+              title="Branch Name"
               onChangeText={(text) => handleChange("branchName", text)}
             />
             <InputField
               value={formData.paymentDate}
-              title="Payment Date" // Don't forget to pass the handleChange function
+              title="Payment Date"
               onChangeText={(text) => handleChange("paymentDate", text)}
             />
+            <View style={formStyles.inputWrapper}>
+              <Text>Already Amount Recieved</Text>
+              <TextInput
+                style={[
+                  formStyles.inputField,
+                  {
+                    backgroundColor: `#ddd`,
+                    cursor: "not-allowed",
+                    outline: "none",
+                  },
+                ]}
+                value={formData.alreadyAmountRecieved}
+              />
+            </View>
             <InputField
               value={formData.amountRecieved}
-              title="Amount Recieved" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("amountRecieved", text)}
+              title="Amount Recieved"
+              onChangeText={(text) =>
+                handleChange("amountRecieved", text, true)
+              }
             />
             <InputField
               value={formData.balanceAmount}
-              title="Balance Amount" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("balanceAmount", text)}
+              title="Balance Amount"
+              onChangeText={(text) => handleChange("balanceAmount", text, true)}
             />
             <InputField
               value={formData.balanceAmountDueDate}
-              title="Balance Amount Due Date" // Don't forget to pass the handleChange function
+              title="Balance Amount Due Date"
               onChangeText={(text) =>
                 handleChange("balanceAmountDueDate", text)
               }
             />
+            <View style={formStyles.inputWrapper}>
+              <Text>
+                System generated Digits
+                <Text style={formStyles.requiredStar}>*</Text>
+              </Text>
+              <TextInput
+                style={[
+                  formStyles.inputField,
+                  {
+                    backgroundColor: `#ddd`,
+                    cursor: "not-allowed",
+                    outline: "none",
+                  },
+                ]}
+                value={systemDigits}
+              />
+            </View>
+
+            <View style={formStyles.inputWrapper}>
+              <Text>
+                Enter exactly four digits
+                <Text style={formStyles.requiredStar}>*</Text>
+              </Text>
+              <TextInput
+                style={formStyles.inputField}
+                value={userDigits}
+                placeholder={`Enter exactly four digits...`}
+                onChange={handleBarcodeDigits}
+              />
+            </View>
           </View>
           <View style={formStyles.buttonPosition}>
             <TouchableOpacity
@@ -388,3 +482,7 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReservationForm);
+
+function generateRandom4DigitCode() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}

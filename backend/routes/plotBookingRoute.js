@@ -13,9 +13,9 @@ router.post("/", async (req, res) => {
       purchaserName,
       guardianName,
       cnic,
-      streetNo,
-      address,
       mobileNo,
+      address,
+      streetNo,
       category,
       plotSize,
       ratePerMarla,
@@ -26,9 +26,11 @@ router.post("/", async (req, res) => {
       bankName,
       branchName,
       paymentDate,
+      alreadyAmountRecieved,
       amountRecieved,
       balanceAmount,
       balanceAmountDueDate,
+      barcodeDigits,
     } = req.body;
 
     // Check if all required fields are provided
@@ -50,7 +52,8 @@ router.post("/", async (req, res) => {
       !extraPaymentFactor ||
       !amountRecieved ||
       !balanceAmount ||
-      !balanceAmountDueDate
+      !balanceAmountDueDate ||
+      !barcodeDigits
     ) {
       return res.status(400).json({
         error: "All fields are required",
@@ -64,9 +67,9 @@ router.post("/", async (req, res) => {
       purchaserName,
       guardianName,
       cnic,
-      streetNo,
-      address,
       mobileNo,
+      address,
+      streetNo,
       category,
       plotSize,
       ratePerMarla,
@@ -77,9 +80,11 @@ router.post("/", async (req, res) => {
       bankName,
       branchName,
       paymentDate,
+      alreadyAmountRecieved,
       amountRecieved,
       balanceAmount,
       balanceAmountDueDate,
+      barcodeDigits,
     });
 
     // Save the new employee to the database
