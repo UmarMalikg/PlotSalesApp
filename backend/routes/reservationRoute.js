@@ -14,11 +14,10 @@ router.post("/", async (req, res) => {
       purchaserName,
       guardianName,
       cnic,
-      streetNo,
-      address,
       mobileNo,
+      address,
+      streetNo,
       category,
-      //   dimension,
       plotSize,
       ratePerMarla,
       extraPaymentFactor,
@@ -31,8 +30,7 @@ router.post("/", async (req, res) => {
       amountRecieved,
       balanceAmount,
       balanceAmountDueDate,
-      //   salePrice,
-      //   installmentSalePrice,
+      barcodeDigits,
     } = req.body;
 
     // Check if all required fields are provided
@@ -42,8 +40,8 @@ router.post("/", async (req, res) => {
       !purchaserName ||
       !guardianName ||
       !cnic ||
-      !address ||
       !mobileNo ||
+      !address ||
       !category ||
       !extraFactorPaymenyt ||
       !totalPlotPayment ||
@@ -54,7 +52,8 @@ router.post("/", async (req, res) => {
       !extraPaymentFactor ||
       !amountRecieved ||
       !balanceAmount ||
-      !balanceAmountDueDate
+      !balanceAmountDueDate ||
+      !barcodeDigits
     ) {
       return res.status(400).json({
         error: "All fields are required",
@@ -68,11 +67,10 @@ router.post("/", async (req, res) => {
       purchaserName,
       guardianName,
       cnic,
-      streetNo,
-      address,
       mobileNo,
+      address,
+      streetNo,
       category,
-      //   dimension,
       plotSize,
       ratePerMarla,
       extraPaymentFactor,
@@ -85,6 +83,7 @@ router.post("/", async (req, res) => {
       amountRecieved,
       balanceAmount,
       balanceAmountDueDate,
+      barcodeDigits,
     });
 
     // Save the new employee to the database

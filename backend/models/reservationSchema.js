@@ -6,9 +6,9 @@ const reservationSchema = mongoose.Schema({
   purchaserName: { type: String, required: true },
   guardianName: { type: String, required: true },
   cnic: { type: String, required: true },
-  streetNo: { type: String },
-  address: { type: String },
   mobileNo: { type: Number, required: true },
+  address: { type: String },
+  streetNo: { type: String },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "categories",
@@ -27,6 +27,7 @@ const reservationSchema = mongoose.Schema({
   amountRecieved: { type: String, required: true },
   balanceAmount: { type: String, required: true },
   balanceAmountDueDate: { type: Date, required: true },
+  barcodeDigits: { type: String, required: true },
 });
 
 const Reservation = mongoose.model("reservation", reservationSchema);

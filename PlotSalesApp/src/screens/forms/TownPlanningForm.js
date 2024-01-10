@@ -353,10 +353,7 @@ const TownPlanningForm = ({
               }
             />
             <View style={formStyles.inputWrapper}>
-              <Text>
-                System generated Digits
-                <Text style={formStyles.requiredStar}>*</Text>
-              </Text>
+              <Text>System generated Digits</Text>
               <TextInput
                 style={[
                   formStyles.inputField,
