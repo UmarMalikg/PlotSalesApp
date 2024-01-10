@@ -120,6 +120,12 @@ const dataStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+
+  barcodePosition: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default dataStyles;

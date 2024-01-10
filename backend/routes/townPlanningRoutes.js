@@ -15,11 +15,13 @@ router.post("/", async (req, res) => {
       dimension,
       plotSize,
       ratePerMarla,
+      marlaSize,
       extraPaymentFactor,
       extraPaymentAmount,
       streetNo,
       salePrice,
       installmentSalePrice,
+      barcodeDigits,
     } = req.body;
 
     // Check if all required fields are provided
@@ -27,15 +29,17 @@ router.post("/", async (req, res) => {
       !lotNo ||
       !blockName ||
       !plotNo ||
-      //   !category||
+      !category ||
       !dimension ||
       !plotSize ||
       !ratePerMarla ||
+      !marlaSize ||
       !extraPaymentFactor ||
       !extraPaymentAmount ||
       !streetNo ||
       !salePrice ||
-      !installmentSalePrice
+      !installmentSalePrice ||
+      !barcodeDigits
     ) {
       return res.status(400).json({
         error: "All fields are required",
@@ -51,11 +55,13 @@ router.post("/", async (req, res) => {
       dimension,
       plotSize,
       ratePerMarla,
+      marlaSize,
       extraPaymentFactor,
       extraPaymentAmount,
       streetNo,
       salePrice,
       installmentSalePrice,
+      barcodeDigits,
     });
 
     // Save the new employee to the database

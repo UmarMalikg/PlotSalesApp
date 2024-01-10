@@ -1,22 +1,32 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import formStyles from "../../styles/formStyles";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { fetchCategoryData } from "../../redux/actions/categoryActions";
-import { fetchPaymentMethodData } from "../../redux/actions/paymentMethodActions";
 import { addTownPlanning } from "../../redux/actions/townPlanningActions";
-import InputField from "./components/InputFieldWrapper";
+import InputField from "./components/InputField";
+
+let systemDigits = generateRandom4DigitCode();
 
 const TownPlanningForm = ({
   addTownPlanning,
   fetchCategoryData,
-  fetchPaymentMethodData,
   categoryData,
-  paymentMethodData,
 }) => {
   const navigation = useNavigation();
+
+  //user Digits Define
+  const [userDigits, setUserDigits] = useState("");
+  const [dimensionsHeight, setDimensionsHeight] = useState("");
+  const [dimensionsWidth, setDimensionsWidth] = useState("");
 
   // for hovering effect
   const [isHovered, setIsHovered] = useState(false);
@@ -34,43 +44,93 @@ const TownPlanningForm = ({
     lotNo: "",
     blockName: "",
     plotNo: "",
-    // purchaserName: "",
-    // guardianName: "",
-    // cnic: "",
-    // streetNo: "",
-    // address: "",
-    // mobileNo: "",
     category: "",
     dimension: "",
     plotSize: "",
     ratePerMarla: "",
+    marlaSize: "",
     extraPaymentFactor: "",
     extraPaymentAmount: "",
     streetNo: "",
-    // totalPlotPayment: "",
-    // paymentMode: "",
-    // bankName: "",
-    // branchName: "",
-    // paymentDate: "",
-    // amountRecieved: "",
-    // balanceAmount: "",
     salePrice: "",
     installmentSalePrice: "",
+    barcodeDigits: "",
   });
 
   // fetching the category and payemt method Data
   useEffect(() => {
     // Fetch category data when the component mounts
     fetchCategoryData();
-    fetchPaymentMethodData();
-  }, [fetchCategoryData, fetchPaymentMethodData]);
+  }, [fetchCategoryData]);
 
   //handling the form data
-  const handleChange = (fieldName, value) => {
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
+  const handleChange = (fieldName, value, isNumeric) => {
+    // If isNumeric is true, remove non-numeric characters
+    const cleanedValue = isNumeric ? value.replace(/[^0-9]/g, "") : value;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [fieldName]: cleanedValue,
+    }));
+  };
+
+  const handleUserDigits = (e) => {
+    const value = e.target.value;
+
+    // Ensure only digits are entered and limit to exactly four digits
+    if (/^\d{0,4}$/.test(value)) {
+      setUserDigits(value);
+    }
+  };
+
+  //handle dimension's Height
+  const handleDimensionsHeight = (e) => {
+    const value = e.target.value;
+
+    // Ensure only digits are entered
+    if (/^\d*$/.test(value)) {
+      setDimensionsHeight(value);
+    }
+    handleDimension();
+  };
+
+  //handle dimension's Width
+  const handleDimensionsWidth = (e) => {
+    const value = e.target.value;
+    // Ensure only digits are entered
+    if (/^\d*$/.test(value)) {
+      setDimensionsWidth(value);
+    }
+    handleDimension();
+  };
+
+  // handling the dimension
+  const handleDimension = () => {
+    if (
+      (!dimensionsHeight && dimensionsWidth === 0) ||
+      (!dimensionsWidth && dimensionsWidth.length === 0)
+    ) {
+      return;
+    }
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      dimension: `${dimensionsHeight}X${dimensionsWidth}`,
+    }));
+    console.log(formData.dimension);
+  };
+
+  // handling the barcode digits
+  const handleBarcodeDigits = (e) => {
+    handleUserDigits(e);
+    if (!userDigits && userDigits.length === 0) {
+      return;
+    } else if (userDigits.length === 4) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        barcodeDigits: systemDigits + userDigits,
+      }));
+      console.log(formData.barcodeDigits);
+    }
   };
 
   // submission logic
@@ -84,11 +144,13 @@ const TownPlanningForm = ({
       !formData.dimension ||
       !formData.plotSize ||
       !formData.ratePerMarla ||
+      !formData.marlaSize ||
       !formData.extraPaymentFactor ||
       !formData.extraPaymentAmount ||
       !formData.streetNo ||
       !formData.salePrice ||
-      !formData.installmentSalePrice
+      !formData.installmentSalePrice ||
+      !formData.barcodeDigits
     ) {
       console.log("Please enter the all fields for town planning");
       alert("please enter the all fields for town plannings");
@@ -104,11 +166,13 @@ const TownPlanningForm = ({
       dimension: formData.dimension,
       plotSize: formData.plotSize,
       ratePerMarla: formData.ratePerMarla,
+      marlaSize: formData.marlaSize,
       extraPaymentFactor: formData.extraPaymentFactor,
       extraPaymentAmount: formData.extraPaymentAmount,
       streetNo: formData.streetNo,
       salePrice: formData.salePrice,
       installmentSalePrice: formData.installmentSalePrice,
+      barcodeDigits: formData.barcodeDigits,
     };
 
     // Dispatch the addProduct action
@@ -123,12 +187,16 @@ const TownPlanningForm = ({
       dimension: "",
       plotSize: "",
       ratePerMarla: "",
+      marlaSize: "",
       extraPaymentFactor: "",
       extraPaymentAmount: "",
       streetNo: "",
       salePrice: "",
       installmentSalePrice: "",
+      barcodeDigits: "",
     });
+    setUserDigits("");
+    generateRandom4DigitCode();
   };
   // clearing the form
   const clearForm = () => {
@@ -140,12 +208,15 @@ const TownPlanningForm = ({
       dimension: "",
       plotSize: "",
       ratePerMarla: "",
+      marlaSize: "",
       extraPaymentFactor: "",
       extraPaymentAmount: "",
       streetNo: "",
       salePrice: "",
       installmentSalePrice: "",
+      barcodeDigits: "",
     });
+    setUserDigits("");
   };
   // Component
   return (
@@ -202,21 +273,53 @@ const TownPlanningForm = ({
                 ))}
               </Picker>
             </View>
-
-            <InputField
-              value={formData.dimension}
-              title="Dimension HXW" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("dimension", text)}
-            />
+            <View
+              style={[
+                formStyles.inputWrapper,
+                { display: "grid", gridTemplateColumns: "1fr 1fr" },
+              ]}
+            >
+              <View>
+                <Text>
+                  Height
+                  <Text style={formStyles.requiredStar}>*</Text>
+                </Text>
+                <TextInput
+                  style={formStyles.inputField}
+                  value={dimensionsHeight}
+                  placeholder={`H`}
+                  onChange={handleDimensionsHeight}
+                  placeholderTextColor={`#999`}
+                />
+              </View>
+              <View>
+                <Text>
+                  Width
+                  <Text style={formStyles.requiredStar}>*</Text>
+                </Text>
+                <TextInput
+                  style={formStyles.inputField}
+                  value={dimensionsWidth}
+                  placeholder={`W`}
+                  onChange={handleDimensionsWidth}
+                  placeholderTextColor={`#999`}
+                />
+              </View>
+            </View>
             <InputField
               value={formData.plotSize}
               title="plotSize" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("plotSize", text)}
+              onChangeText={(text) => handleChange("plotSize", text, true)}
             />
             <InputField
               value={formData.ratePerMarla}
               title="Rate per Marla" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("ratePerMarla", text)}
+              onChangeText={(text) => handleChange("ratePerMarla", text, true)}
+            />
+            <InputField
+              value={formData.marlaSize}
+              title="Marla Size(Sft)" // Don't forget to pass the handleChange function
+              onChangeText={(text) => handleChange("marlaSize", text, true)}
             />
 
             <InputField
@@ -228,7 +331,9 @@ const TownPlanningForm = ({
             <InputField
               value={formData.extraPaymentAmount}
               title="Extra Factor Paymenyt" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("extraPaymentAmount", text)}
+              onChangeText={(text) =>
+                handleChange("extraPaymentAmount", text, true)
+              }
             />
             <InputField
               value={formData.streetNo}
@@ -238,15 +343,45 @@ const TownPlanningForm = ({
             <InputField
               value={formData.salePrice}
               title="Sale Price" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("salePrice", text)}
+              onChangeText={(text) => handleChange("salePrice", text, true)}
             />
             <InputField
               value={formData.installmentSalePrice}
               title="Installment Sale Price" // Don't forget to pass the handleChange function
               onChangeText={(text) =>
-                handleChange("installmentSalePrice", text)
+                handleChange("installmentSalePrice", text, true)
               }
             />
+            <View style={formStyles.inputWrapper}>
+              <Text>
+                System generated Digits
+                <Text style={formStyles.requiredStar}>*</Text>
+              </Text>
+              <TextInput
+                style={[
+                  formStyles.inputField,
+                  {
+                    backgroundColor: `#ddd`,
+                    cursor: "not-allowed",
+                    outline: "none",
+                  },
+                ]}
+                value={systemDigits}
+              />
+            </View>
+
+            <View style={formStyles.inputWrapper}>
+              <Text>
+                Enter exactly four digits
+                <Text style={formStyles.requiredStar}>*</Text>
+              </Text>
+              <TextInput
+                style={formStyles.inputField}
+                value={userDigits}
+                placeholder={`Enter exactly four digits...`}
+                onChange={handleBarcodeDigits}
+              />
+            </View>
           </View>
           <View style={formStyles.buttonPosition}>
             <TouchableOpacity
@@ -283,14 +418,16 @@ const TownPlanningForm = ({
 const mapStateToProps = (state) => {
   return {
     categoryData: state.categories.categoryData,
-    paymentMethodData: state.paymentMethods.paymentMethodData,
   };
 };
 
 const mapDispatchToProps = {
   addTownPlanning,
   fetchCategoryData,
-  fetchPaymentMethodData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TownPlanningForm);
+
+function generateRandom4DigitCode() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}

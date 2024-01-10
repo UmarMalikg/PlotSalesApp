@@ -1,5 +1,6 @@
 import { View, ScrollView } from "react-native";
 import React, { useEffect } from "react";
+import Barcode from "react-barcode";
 import dataStyles from "../styles/dataStyles";
 import { connect } from "react-redux";
 import { fetchTownPlanningData } from "../redux/actions/townPlanningActions";
@@ -43,6 +44,7 @@ const TownPlanning = ({
                   title={`Rate Per Marla :`}
                   data={data.ratePerMarla}
                 />
+                <SingleData title={`Marla Size(Sft) :`} data={data.marlaSize} />
                 <SingleData
                   title={`Extra Payment Factor :`}
                   data={data.extraPaymentFactor}
@@ -57,10 +59,13 @@ const TownPlanning = ({
                   title={`Installment Sale Price :`}
                   data={data.installmentSalePrice}
                 />
-                {/* <View style={dataStyles.singleData}>
-                <Text style={dataStyles.dataTitle}>Plot No:</Text>
-                <Text style={dataStyles.data}>{townPlanning.plotNo}</Text>
-              </View> */}
+                <View style={dataStyles.barcodePosition}>
+                  <Barcode
+                    value={`12345678`}
+                    displayValue={false}
+                    height={60}
+                  />
+                </View>
               </View>
             ))}
           </View>

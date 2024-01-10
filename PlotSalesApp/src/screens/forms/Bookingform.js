@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { fetchCategoryData } from "../../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../../redux/actions/paymentMethodActions";
 import { addBooking } from "../../redux/actions/bookingActions";
-import InputField from "./components/InputFieldWrapper";
+import InputField from "./components/InputField";
 
 const ReservationForm = ({
   addBooking,
@@ -181,6 +181,7 @@ const ReservationForm = ({
     <View style={formStyles.model}>
       <TouchableOpacity
         onPressIn={handlePressIn}
+        n
         onPressOut={handlePressOut}
         style={formStyles.closeButton}
         onPress={() => navigation.navigate("Dashboard")}

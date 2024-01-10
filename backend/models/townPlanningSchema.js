@@ -9,13 +9,15 @@ const townPlanningSchema = mongoose.Schema({
     ref: "categories",
   },
   dimension: { type: String, required: true },
-  plotSize: { type: String, required: true },
+  plotSize: { type: Number, required: true },
   ratePerMarla: { type: Number, required: true },
+  marlaSize: { type: Number, required: true },
   extraPaymentFactor: { type: String, required: true },
-  extraPaymentAmount: { type: String, required: true },
+  extraPaymentAmount: { type: Number, required: true },
   streetNo: { type: String, required: true },
-  salePrice: { type: String, required: true },
-  installmentSalePrice: { type: String, required: true },
+  salePrice: { type: Number, required: true },
+  installmentSalePrice: { type: Number, required: true },
+  barcodeDigits: { type: String, required: true },
 });
 
 const TownPlanning = mongoose.model("townplannings", townPlanningSchema);

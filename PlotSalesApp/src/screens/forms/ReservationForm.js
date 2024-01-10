@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { fetchCategoryData } from "../../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../../redux/actions/paymentMethodActions";
 import { addReservation } from "../../redux/actions/reservationActions";
-import InputField from "./components/InputFieldWrapper";
+import InputField from "./components/InputField";
 
 const ReservationForm = ({
   addReservation,
