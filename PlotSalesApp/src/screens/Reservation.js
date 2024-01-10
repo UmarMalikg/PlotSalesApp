@@ -1,6 +1,7 @@
 import { View, ScrollView } from "react-native";
 import React, { useEffect } from "react";
 import dataStyles from "../styles/dataStyles";
+import Barcode from "react-barcode";
 import { connect } from "react-redux";
 import { fetchReservationData } from "../redux/actions/reservationActions";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
@@ -92,6 +93,13 @@ const Reservation = ({
                   title={`Balance Amount Due Date :`}
                   data={data.balanceAmountDueDate}
                 />
+                <View style={dataStyles.barcodePosition}>
+                  <Barcode
+                    value={data.barcodeDigits}
+                    displayValue={false}
+                    height={60}
+                  />
+                </View>
               </View>
             ))}
           </View>
