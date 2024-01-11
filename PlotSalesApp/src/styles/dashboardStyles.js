@@ -12,7 +12,6 @@ const dashboardStyles = StyleSheet.create({
   },
   dashboardLink: {
     height: 150,
-
     marginVertical: 10,
     marginHorizontal: isWeb ? 20 : 10,
   },
