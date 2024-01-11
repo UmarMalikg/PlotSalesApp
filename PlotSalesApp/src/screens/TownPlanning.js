@@ -5,8 +5,8 @@ import dataStyles from "../styles/dataStyles";
 import { connect } from "react-redux";
 import { fetchTownPlanningData } from "../redux/actions/townPlanningActions";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
-import DataHeader from "./forms/components/DataHeader";
-import SingleData from "./forms/components/SingleData";
+import DataHeader from "./components/DataHeader";
+import SingleData from "./components/SingleData";
 
 const TownPlanning = ({
   fetchTownPlanningData,

@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../redux/actions/paymentMethodActions";
 import { fetchBookingData } from "../redux/actions/bookingActions";
-import DataHeader from "./forms/components/DataHeader";
-import SingleData from "./forms/components/SingleData";
+import DataHeader from "./components/DataHeader";
+import SingleData from "./components/SingleData";
 
 const Booking = ({
   fetchCategoryData,

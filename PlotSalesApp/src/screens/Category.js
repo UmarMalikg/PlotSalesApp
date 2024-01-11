@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import dataStyles from "../styles/dataStyles";
 import { connect } from "react-redux";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
-import DataHeader from "./forms/components/DataHeader";
+import DataHeader from "./components/DataHeader";
 
 const Category = ({ fetchCategoryData, categoryData }) => {
   useEffect(() => {

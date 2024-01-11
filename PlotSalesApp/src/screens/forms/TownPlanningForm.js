@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { fetchCategoryData } from "../../redux/actions/categoryActions";
 import { addTownPlanning } from "../../redux/actions/townPlanningActions";
-import InputField from "./components/InputField";
+import InputField from "../components/InputField";
 
 let systemDigits = generateRandom4DigitCode();
 

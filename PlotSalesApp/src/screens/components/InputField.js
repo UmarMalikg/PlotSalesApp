@@ -1,5 +1,5 @@
 import { View, Text, TextInput } from "react-native";
-import formStyles from "../../../styles/formStyles";
+import formStyles from "../../styles/formStyles";
 import React from "react";
 
 const InputField = ({ title, value, onChangeText }) => {

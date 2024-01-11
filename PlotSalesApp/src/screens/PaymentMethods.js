@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import dataStyles from "../styles/dataStyles";
 import { connect } from "react-redux";
 import { fetchPaymentMethodData } from "../redux/actions/paymentMethodActions";
-import DataHeader from "./forms/components/DataHeader";
+import DataHeader from "./components/DataHeader";
 
 const PaaymentMethods = ({ fetchPaymentMethodData, paymentMethodData }) => {
   useEffect(() => {

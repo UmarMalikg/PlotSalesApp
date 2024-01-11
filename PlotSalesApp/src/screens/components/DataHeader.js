@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import dataStyles from "../../../styles/dataStyles";
+import dataStyles from "../../styles/dataStyles";
 
 const DataHeader = ({ headerTitle }) => {
   const navigation = useNavigation();
