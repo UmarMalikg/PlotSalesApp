@@ -1,4 +1,4 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Platform, Text } from "react-native";
 import React, { useEffect } from "react";
 import Barcode from "react-barcode";
 import dataStyles from "../styles/dataStyles";
@@ -7,6 +7,8 @@ import { fetchTownPlanningData } from "../redux/actions/townPlanningActions";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
 import DataHeader from "./components/DataHeader";
 import SingleData from "./components/SingleData";
+
+let isWeb = Platform.OS === "web";
 
 const TownPlanning = ({
   fetchTownPlanningData,
@@ -59,12 +61,17 @@ const TownPlanning = ({
                   title={`Installment Sale Price :`}
                   data={data.installmentSalePrice}
                 />
+
                 <View style={dataStyles.barcodePosition}>
-                  <Barcode
-                    value={data.barcodeDigits}
-                    displayValue={false}
-                    height={60}
-                  />
+                  {isWeb ? (
+                    <Barcode
+                      value={data.barcodeDigits}
+                      displayValue={false}
+                      height={60}
+                    />
+                  ) : (
+                    <Text>Barcode</Text>
+                  )}
                 </View>
               </View>
             ))}

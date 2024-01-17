@@ -3,6 +3,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Platform,
   TextInput,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
@@ -14,6 +15,8 @@ import { fetchCategoryData } from "../../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../../redux/actions/paymentMethodActions";
 import { addBooking } from "../../redux/actions/bookingActions";
 import InputField from "../components/InputField";
+
+let isWeb = Platform.OS === "web";
 
 let systemDigits = generateRandom4DigitCode();
 
@@ -191,6 +194,7 @@ const ReservationForm = ({
       balanceAmountDueDate: "",
     });
     setUserDigits("");
+    generateRandom4DigitCode();
   };
   // clearing the form
   const clearForm = () => {
@@ -337,7 +341,7 @@ const ReservationForm = ({
 
             <View style={formStyles.inputWrapper}>
               <Text>
-                PAyment Mode
+                Payment Mode
                 <Text style={formStyles.requiredStar}>*</Text>
               </Text>
               <Picker
@@ -368,11 +372,33 @@ const ReservationForm = ({
               title="Branch Name"
               onChangeText={(text) => handleChange("branchName", text)}
             />
-            <InputField
-              value={formData.paymentDate}
-              title="Payment Date"
-              onChangeText={(text) => handleChange("paymentDate", text)}
-            />
+
+            {isWeb ? (
+              <View style={formStyles.inputWrapper}>
+                <Text>
+                  Payment Date
+                  <Text style={formStyles.requiredStar}>*</Text>
+                </Text>
+                <input
+                  type="date"
+                  style={formStyles.inputField}
+                  value={formData.paymentDate}
+                  onChange={(e) => {
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      paymentDate: e.target.value,
+                    }));
+                  }}
+                />
+              </View>
+            ) : (
+              <InputField
+                value={formData.paymentDate}
+                title="Payment Date"
+                onChangeText={(text) => handleChange("paymentDate", text)}
+              />
+            )}
+
             <View style={formStyles.inputWrapper}>
               <Text>Already Amount Recieved</Text>
               <TextInput
@@ -399,13 +425,33 @@ const ReservationForm = ({
               title="Balance Amount"
               onChangeText={(text) => handleChange("balanceAmount", text, true)}
             />
-            <InputField
-              value={formData.balanceAmountDueDate}
-              title="Balance Amount Due Date"
-              onChangeText={(text) =>
-                handleChange("balanceAmountDueDate", text)
-              }
-            />
+            {isWeb ? (
+              <View style={formStyles.inputWrapper}>
+                <Text>
+                  Balance Amount Due Date
+                  <Text style={formStyles.requiredStar}>*</Text>
+                </Text>
+                <input
+                  type="date"
+                  style={formStyles.inputField}
+                  value={formData.balanceAmountDueDate}
+                  onChange={(e) => {
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      balanceAmountDueDate: e.target.value,
+                    }));
+                  }}
+                />
+              </View>
+            ) : (
+              <InputField
+                value={formData.balanceAmountDueDate}
+                title="Balance Amount Due Date"
+                onChangeText={(text) =>
+                  handleChange("balanceAmountDueDate", text)
+                }
+              />
+            )}
             <View style={formStyles.inputWrapper}>
               <Text>System generated Digits</Text>
               <TextInput

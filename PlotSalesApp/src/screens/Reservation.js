@@ -1,4 +1,4 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Platform, Text } from "react-native";
 import React, { useEffect } from "react";
 import dataStyles from "../styles/dataStyles";
 import Barcode from "react-barcode";
@@ -8,6 +8,8 @@ import { fetchCategoryData } from "../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../redux/actions/paymentMethodActions";
 import DataHeader from "./components/DataHeader";
 import SingleData from "./components/SingleData";
+
+let isWeb = Platform.OS === "web";
 
 const Reservation = ({
   fetchCategoryData,
@@ -94,11 +96,15 @@ const Reservation = ({
                   data={data.balanceAmountDueDate}
                 />
                 <View style={dataStyles.barcodePosition}>
-                  <Barcode
-                    value={data.barcodeDigits}
-                    displayValue={false}
-                    height={60}
-                  />
+                  {isWeb ? (
+                    <Barcode
+                      value={data.barcodeDigits}
+                      displayValue={false}
+                      height={60}
+                    />
+                  ) : (
+                    <Text>Barcode</Text>
+                  )}
                 </View>
               </View>
             ))}

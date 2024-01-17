@@ -1,5 +1,6 @@
 import {
   View,
+  Platform,
   Text,
   ScrollView,
   TouchableOpacity,
@@ -14,6 +15,8 @@ import { fetchCategoryData } from "../../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../../redux/actions/paymentMethodActions";
 import { addReservation } from "../../redux/actions/reservationActions";
 import InputField from "../components/InputField";
+
+let isWeb = Platform.OS === "web";
 
 let systemDigits = generateRandom4DigitCode();
 
@@ -364,11 +367,31 @@ const ReservationForm = ({
               title="Branch Name" // Don't forget to pass the handleChange function
               onChangeText={(text) => handleChange("branchName", text)}
             />
-            <InputField
-              value={formData.paymentDate}
-              title="Payment Date" // Don't forget to pass the handleChange function
-              onChangeText={(text) => handleChange("paymentDate", text)}
-            />
+            {isWeb ? (
+              <View style={formStyles.inputWrapper}>
+                <Text>
+                  Payment Date
+                  <Text style={formStyles.requiredStar}>*</Text>
+                </Text>
+                <input
+                  type="date"
+                  style={formStyles.inputField}
+                  value={formData.paymentDate}
+                  onChange={(e) => {
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      paymentDate: e.target.value,
+                    }));
+                  }}
+                />
+              </View>
+            ) : (
+              <InputField
+                value={formData.paymentDate}
+                title="Payment Date" // Don't forget to pass the handleChange function
+                onChangeText={(text) => handleChange("paymentDate", text)}
+              />
+            )}
             <InputField
               value={formData.amountRecieved}
               title="Amount Recieved" // Don't forget to pass the handleChange function
@@ -381,13 +404,34 @@ const ReservationForm = ({
               title="Balance Amount" // Don't forget to pass the handleChange function
               onChangeText={(text) => handleChange("balanceAmount", text, true)}
             />
-            <InputField
-              value={formData.balanceAmountDueDate}
-              title="Balance Amount Due Date" // Don't forget to pass the handleChange function
-              onChangeText={(text) =>
-                handleChange("balanceAmountDueDate", text)
-              }
-            />
+            {isWeb ? (
+              <View style={formStyles.inputWrapper}>
+                <Text>
+                  Balance Amount Due Date
+                  <Text style={formStyles.requiredStar}>*</Text>
+                </Text>
+                <input
+                  type="date"
+                  style={formStyles.inputField}
+                  value={formData.balanceAmountDueDate}
+                  onChange={(e) => {
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      balanceAmountDueDate: e.target.value,
+                    }));
+                  }}
+                />
+              </View>
+            ) : (
+              <InputField
+                value={formData.balanceAmountDueDate}
+                title="Balance Amount Due Date" // Don't forget to pass the handleChange function
+                onChangeText={(text) =>
+                  handleChange("balanceAmountDueDate", text)
+                }
+              />
+            )}
+
             <View style={formStyles.inputWrapper}>
               <Text>System generated Digits</Text>
               <TextInput
