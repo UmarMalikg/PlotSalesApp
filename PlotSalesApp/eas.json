@@ -13,6 +13,11 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {},
+    "androidapk": {
+      "android": {
+        "buildType": "apk"
+      }
+    }
   }
 }
