@@ -26,6 +26,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fa7f75ff-068c-47b9-87f0-229ae40af318"
+      }
+    },
+    "owner": "malikumar15"
   }
 }
