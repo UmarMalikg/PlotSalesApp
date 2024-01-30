@@ -7,6 +7,7 @@ import { fetchTownPlanningData } from "../redux/actions/townPlanningActions";
 import { fetchCategoryData } from "../redux/actions/categoryActions";
 import DataHeader from "./components/DataHeader";
 import SingleData from "./components/SingleData";
+import QRCode from "react-native-qrcode-svg";
 
 let isWeb = Platform.OS === "web";
 
@@ -70,7 +71,7 @@ const TownPlanning = ({
                       height={60}
                     />
                   ) : (
-                    <Text>Barcode</Text>
+                    <QRCode value={data.barcodeDigits} size={100} />
                   )}
                 </View>
               </View>

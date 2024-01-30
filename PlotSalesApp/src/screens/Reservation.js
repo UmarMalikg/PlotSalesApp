@@ -28,7 +28,7 @@ const Reservation = ({
 
   return (
     <View style={{ flex: 1 }}>
-      <DataHeader headerTitle={`Reservation`} />
+      <DataHeader headerTitle={`Reservations`} />
       <View style={dataStyles.dataPosition}>
         <ScrollView>
           <View style={dataStyles.dataGrids}>
