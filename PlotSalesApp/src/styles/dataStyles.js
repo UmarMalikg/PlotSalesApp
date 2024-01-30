@@ -16,22 +16,22 @@ const dataStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
-    ...(isWeb && {
-      marginHorizontal: 30,
-    }),
+    marginHorizontal: isWeb ? 30 : 10,
   },
   hederTitle: {
     fontSize: isWeb ? 22 : 19,
-    fontWeight: "bold",
+    ...(isWeb && {
+      fontWeight: "bold",
+    }),
   },
 
   dataPosition: {
     position: "absolute",
     left: 0,
     right: 0,
-    top: 50,
-    height: "90vh",
-    width: "100vw",
+    top: isWeb ? 50 : 70,
+    height: isWeb ? "90%" : "88%",
+    width: "100%",
   },
 
   dataGrids: {
@@ -63,6 +63,7 @@ const dataStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   dataTitle: {
     fontWeight: "bold",
@@ -82,17 +83,21 @@ const dataStyles = StyleSheet.create({
     marginVertical: 20,
   },
   buttonText: {
-    fontWeight: "bold",
-    fontSize: 14,
+    ...(isWeb && {
+      fontWeight: "bold",
+    }),
+    fontSize: 15,
     color: "white",
   },
 
   //styles for categories and payment methods data pages
 
   catPaygrids: {
-    display: "grid",
-    gridTemplateColumns: isWeb ? "1fr 1fr 1fr 1fr 1fr" : "1fr 1fr",
-    padding: isWeb ? 20 : 10,
+    ...(isWeb && {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
+      padding: 20,
+    }),
   },
 
   catPayDataWrapper: {
@@ -122,6 +127,7 @@ const dataStyles = StyleSheet.create({
   },
 
   barcodePosition: {
+    marginTop: 10,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
