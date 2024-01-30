@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Image,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import formStyles from "../../styles/formStyles";
@@ -15,6 +16,7 @@ import { fetchCategoryData } from "../../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../../redux/actions/paymentMethodActions";
 import { addReservation } from "../../redux/actions/reservationActions";
 import InputField from "../components/InputField";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 let isWeb = Platform.OS === "web";
 
@@ -33,6 +35,51 @@ const ReservationForm = ({
   const [userDigits, setUserDigits] = useState("");
   // for hovering effect
   const [isHovered, setIsHovered] = useState(false);
+
+  // Date Picker Configurations
+  // Usestates for both balanceAmountDueDate and PaymentDate
+  const [isPaymentDatePickerVisible, setPaymentDatePickerVisibility] =
+    useState(false);
+  const [
+    isBalanceAmountDatePickerVisible,
+    setBalanceAmountDatePickerVisibility,
+  ] = useState(false);
+
+  // function to handle change in balance Amount Due Date
+  const handleBalanceAmountDateChange = (date) => {
+    setBalanceAmountDatePickerVisibility(false);
+    if (date) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        balanceAmountDueDate: date,
+      }));
+    }
+  };
+
+  // function to handle change in Payment Date
+  const handlePaymentDateChange = (date) => {
+    setPaymentDatePickerVisibility(false);
+    if (date) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        paymentDate: date,
+      }));
+    }
+  };
+
+  // functions to show the date pickers for both paymentDate and balanceAmountDueData
+  const showPaymentDatePicker = () => {
+    setPaymentDatePickerVisibility(true);
+  };
+  const showBalanceAmountDatePicker = () => {
+    setBalanceAmountDatePickerVisibility(true);
+  };
+
+  // hiding the date picker
+  const hideDatePicker = () => {
+    setPaymentDatePickerVisibility(false);
+    setBalanceAmountDatePickerVisibility(false);
+  };
 
   const handlePressIn = () => {
     setIsHovered(true);
@@ -86,22 +133,19 @@ const ReservationForm = ({
     }));
   };
 
-  const handleUserDigits = (e) => {
-    const value = e.target.value;
-
+  const handleUserDigits = (text) => {
     // Ensure only digits are entered and limit to exactly four digits
-    if (/^\d{0,4}$/.test(value)) {
-      setUserDigits(value);
+    if (/^\d{0,4}$/.test(text)) {
+      setUserDigits(text);
     }
   };
-  const handleBarcodeDigits = (e) => {
-    handleUserDigits(e);
-    if (!userDigits && userDigits.length === 0) {
-      return;
-    } else if (userDigits.length === 4) {
+
+  const handleBarcodeDigits = (text) => {
+    handleUserDigits(text);
+    if (text.length === 4) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        barcodeDigits: systemDigits + userDigits,
+        barcodeDigits: systemDigits + text,
       }));
       console.log(formData.barcodeDigits);
     }
@@ -336,7 +380,7 @@ const ReservationForm = ({
 
             <View style={formStyles.inputWrapper}>
               <Text>
-                PAyment Mode
+                Payment Mode
                 <Text style={formStyles.requiredStar}>*</Text>
               </Text>
               <Picker
@@ -386,11 +430,40 @@ const ReservationForm = ({
                 />
               </View>
             ) : (
-              <InputField
-                value={formData.paymentDate}
-                title="Payment Date" // Don't forget to pass the handleChange function
-                onChangeText={(text) => handleChange("paymentDate", text)}
-              />
+              <View style={formStyles.inputWrapper}>
+                <Text>Payment Date</Text>
+                <View
+                  style={[
+                    formStyles.inputField,
+                    {
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    },
+                  ]}
+                >
+                  <Text>
+                    {formData.paymentDate
+                      ? formData.paymentDate.toDateString()
+                      : `Payment Date...`}
+                  </Text>
+
+                  <TouchableOpacity onPress={showPaymentDatePicker}>
+                    <Image
+                      style={{ width: 30, height: 30 }}
+                      source={require("../../../assets/images/datePicker.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <DateTimePickerModal
+                  isVisible={isPaymentDatePickerVisible}
+                  mode="date"
+                  onConfirm={handlePaymentDateChange}
+                  onCancel={hideDatePicker}
+                />
+              </View>
             )}
             <InputField
               value={formData.amountRecieved}
@@ -423,13 +496,40 @@ const ReservationForm = ({
                 />
               </View>
             ) : (
-              <InputField
-                value={formData.balanceAmountDueDate}
-                title="Balance Amount Due Date" // Don't forget to pass the handleChange function
-                onChangeText={(text) =>
-                  handleChange("balanceAmountDueDate", text)
-                }
-              />
+              <View style={formStyles.inputWrapper}>
+                <Text>Balance Amount Due Date</Text>
+                <View
+                  style={[
+                    formStyles.inputField,
+                    {
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    },
+                  ]}
+                >
+                  <Text>
+                    {formData.balanceAmountDueDate
+                      ? formData.balanceAmountDueDate.toDateString()
+                      : `Balance Amount Due Date...`}
+                  </Text>
+
+                  <TouchableOpacity onPress={showBalanceAmountDatePicker}>
+                    <Image
+                      style={{ width: 30, height: 30 }}
+                      source={require("../../../assets/images/datePicker.png")}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <DateTimePickerModal
+                  isVisible={isBalanceAmountDatePickerVisible}
+                  mode="date"
+                  onConfirm={handleBalanceAmountDateChange}
+                  onCancel={hideDatePicker}
+                />
+              </View>
             )}
 
             <View style={formStyles.inputWrapper}>
@@ -456,7 +556,7 @@ const ReservationForm = ({
                 style={formStyles.inputField}
                 value={userDigits}
                 placeholder={`Enter exactly four digits...`}
-                onChange={handleBarcodeDigits}
+                onChangeText={handleBarcodeDigits}
               />
             </View>
           </View>
