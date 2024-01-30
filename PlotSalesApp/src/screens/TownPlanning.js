@@ -24,7 +24,7 @@ const TownPlanning = ({
 
   return (
     <View style={{ flex: 1 }}>
-      <DataHeader headerTitle={`Town Planning (Resedential)`} />
+      <DataHeader headerTitle={`Town Plannings (Resedential)`} />
       <View style={dataStyles.dataPosition}>
         <ScrollView>
           <View style={dataStyles.dataGrids}>

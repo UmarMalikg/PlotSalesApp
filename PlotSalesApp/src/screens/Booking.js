@@ -28,7 +28,7 @@ const Booking = ({
 
   return (
     <View style={{ flex: 1 }}>
-      <DataHeader headerTitle={`Bookings`} />
+      <DataHeader headerTitle={`All Bookings`} />
       <View style={dataStyles.dataPosition}>
         <ScrollView>
           <View style={dataStyles.dataGrids}>

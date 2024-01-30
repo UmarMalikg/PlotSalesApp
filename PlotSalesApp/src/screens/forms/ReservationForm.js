@@ -564,19 +564,20 @@ const ReservationForm = ({
             <TouchableOpacity
               onPressIn={handlePressIn}
               onPressOut={handlePressOut}
-              onPress={clearForm}
-              style={[formStyles.button, isHovered && formStyles.buttonHovered]}
-            >
-              <Text style={formStyles.buttonText}>Clear</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPressIn={handlePressIn}
-              onPressOut={handlePressOut}
               onPress={submitForm}
               style={[formStyles.button, isHovered && formStyles.buttonHovered]}
             >
               <Text style={formStyles.buttonText}>Save</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              onPressIn={handlePressIn}
+              onPressOut={handlePressOut}
+              onPress={clearForm}
+              style={[formStyles.button, isHovered && formStyles.buttonHovered]}
+            >
+              <Text style={formStyles.buttonText}>Clear</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               onPressIn={handlePressIn}
               onPressOut={handlePressOut}

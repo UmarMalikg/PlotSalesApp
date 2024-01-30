@@ -12,7 +12,7 @@ const PaaymentMethods = ({ fetchPaymentMethodData, paymentMethodData }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <DataHeader headerTitle={`All Plot's Categories`} />
+      <DataHeader headerTitle={`Payment Methods`} />
       <View style={dataStyles.dataPosition}>
         <ScrollView>
           <View style={dataStyles.catPaygrids}>
