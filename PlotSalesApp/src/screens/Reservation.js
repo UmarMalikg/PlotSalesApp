@@ -8,6 +8,7 @@ import { fetchCategoryData } from "../redux/actions/categoryActions";
 import { fetchPaymentMethodData } from "../redux/actions/paymentMethodActions";
 import DataHeader from "./components/DataHeader";
 import SingleData from "./components/SingleData";
+import QRCode from "react-native-qrcode-svg";
 
 let isWeb = Platform.OS === "web";
 
@@ -26,7 +27,7 @@ const Reservation = ({
   }, [fetchCategoryData, fetchPaymentMethodData, fetchReservationData]);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <DataHeader headerTitle={`Reservation`} />
       <View style={dataStyles.dataPosition}>
         <ScrollView>
@@ -103,7 +104,7 @@ const Reservation = ({
                       height={60}
                     />
                   ) : (
-                    <Text>Barcode</Text>
+                    <QRCode value={data.barcodeDigits} size={100} />
                   )}
                 </View>
               </View>

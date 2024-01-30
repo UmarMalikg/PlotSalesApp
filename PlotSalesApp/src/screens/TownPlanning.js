@@ -22,7 +22,7 @@ const TownPlanning = ({
   }, [fetchCategoryData, fetchTownPlanningData]);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <DataHeader headerTitle={`Town Planning (Resedential)`} />
       <View style={dataStyles.dataPosition}>
         <ScrollView>

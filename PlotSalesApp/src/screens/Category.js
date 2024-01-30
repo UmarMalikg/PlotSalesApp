@@ -11,7 +11,7 @@ const Category = ({ fetchCategoryData, categoryData }) => {
   }, [fetchCategoryData]);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <DataHeader headerTitle={`All Plot's Categories`} />
       <View style={dataStyles.dataPosition}>
         <ScrollView>
