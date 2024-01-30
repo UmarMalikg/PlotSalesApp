@@ -74,42 +74,27 @@ const TownPlanningForm = ({
     }));
   };
 
-  const handleUserDigits = (e) => {
-    const value = e.target.value;
-
-    // Ensure only digits are entered and limit to exactly four digits
-    if (/^\d{0,4}$/.test(value)) {
-      setUserDigits(value);
-    }
-  };
-
-  //handle dimension's Height
-  const handleDimensionsHeight = (e) => {
-    const value = e.target.value;
-
+  // Handle dimension's Height
+  const handleDimensionsHeight = (text) => {
     // Ensure only digits are entered
-    if (/^\d*$/.test(value)) {
-      setDimensionsHeight(value);
+    if (/^\d*$/.test(text)) {
+      setDimensionsHeight(text);
     }
     handleDimension();
   };
 
-  //handle dimension's Width
-  const handleDimensionsWidth = (e) => {
-    const value = e.target.value;
+  // Handle dimension's Width
+  const handleDimensionsWidth = (text) => {
     // Ensure only digits are entered
-    if (/^\d*$/.test(value)) {
-      setDimensionsWidth(value);
+    if (/^\d*$/.test(text)) {
+      setDimensionsWidth(text);
     }
     handleDimension();
   };
 
-  // handling the dimension
+  // Handling the dimension
   const handleDimension = () => {
-    if (
-      (!dimensionsHeight && dimensionsWidth === 0) ||
-      (!dimensionsWidth && dimensionsWidth.length === 0)
-    ) {
+    if (!dimensionsHeight || !dimensionsWidth) {
       return;
     }
     setFormData((prevFormData) => ({
@@ -120,14 +105,19 @@ const TownPlanningForm = ({
   };
 
   // handling the barcode digits
-  const handleBarcodeDigits = (e) => {
-    handleUserDigits(e);
-    if (!userDigits && userDigits.length === 0) {
-      return;
-    } else if (userDigits.length === 4) {
+  const handleUserDigits = (text) => {
+    // Ensure only digits are entered and limit to exactly four digits
+    if (/^\d{0,4}$/.test(text)) {
+      setUserDigits(text);
+    }
+  };
+
+  const handleBarcodeDigits = (text) => {
+    handleUserDigits(text);
+    if (text.length === 4) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        barcodeDigits: systemDigits + userDigits,
+        barcodeDigits: systemDigits + text,
       }));
       console.log(formData.barcodeDigits);
     }
@@ -288,7 +278,7 @@ const TownPlanningForm = ({
                   style={formStyles.inputField}
                   value={dimensionsHeight}
                   placeholder={`H`}
-                  onChange={handleDimensionsHeight}
+                  onChangeText={handleDimensionsHeight}
                   placeholderTextColor={`#999`}
                 />
               </View>
@@ -301,7 +291,7 @@ const TownPlanningForm = ({
                   style={formStyles.inputField}
                   value={dimensionsWidth}
                   placeholder={`W`}
-                  onChange={handleDimensionsWidth}
+                  onChangeText={handleDimensionsWidth}
                   placeholderTextColor={`#999`}
                 />
               </View>
@@ -366,7 +356,6 @@ const TownPlanningForm = ({
                 value={systemDigits}
               />
             </View>
-
             <View style={formStyles.inputWrapper}>
               <Text>
                 Enter exactly four digits
@@ -376,7 +365,7 @@ const TownPlanningForm = ({
                 style={formStyles.inputField}
                 value={userDigits}
                 placeholder={`Enter exactly four digits...`}
-                onChange={handleBarcodeDigits}
+                onChangeText={handleBarcodeDigits}
               />
             </View>
           </View>
