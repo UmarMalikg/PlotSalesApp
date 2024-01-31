@@ -76,7 +76,9 @@ const dataStyles = StyleSheet.create({
   button: {
     backgroundColor: "#7d00b9",
     borderRadius: 3,
-    cursor: "pointer",
+    ...(isWeb && {
+      cursor: "pointer",
+    }),
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginHorizontal: isWeb ? 20 : 7,

@@ -4,9 +4,9 @@ const isWeb = Platform.OS === "web";
 
 const dashboardStyles = StyleSheet.create({
   dashboard: {
-    display: "grid",
-    gridTemplateColumns: isWeb ? "1fr 1fr 1fr 1fr 1fr" : "1fr 1fr", // Fix the typo here
     ...(isWeb && {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
       padding: 20,
     }),
   },

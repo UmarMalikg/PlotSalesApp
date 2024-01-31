@@ -539,8 +539,10 @@ const ReservationForm = ({
                   formStyles.inputField,
                   {
                     backgroundColor: `#ddd`,
-                    cursor: "not-allowed",
-                    outline: "none",
+                    ...(isWeb && {
+                      cursor: "not-allowed",
+                      outline: "none",
+                    }),
                   },
                 ]}
                 value={systemDigits}

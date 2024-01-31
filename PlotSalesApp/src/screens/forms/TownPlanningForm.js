@@ -14,6 +14,8 @@ import { fetchCategoryData } from "../../redux/actions/categoryActions";
 import { addTownPlanning } from "../../redux/actions/townPlanningActions";
 import InputField from "../components/InputField";
 
+let isWeb = Platform.OS === "web";
+
 let systemDigits = generateRandom4DigitCode();
 
 const TownPlanningForm = ({
@@ -349,8 +351,10 @@ const TownPlanningForm = ({
                   formStyles.inputField,
                   {
                     backgroundColor: `#ddd`,
-                    cursor: "not-allowed",
-                    outline: "none",
+                    ...(isWeb && {
+                      cursor: "not-allowed",
+                      outline: "none",
+                    }),
                   },
                 ]}
                 value={systemDigits}
